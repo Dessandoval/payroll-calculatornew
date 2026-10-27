@@ -8,28 +8,25 @@ import java.util.regex.Pattern;
 public class Program {
     public static void main(String[] args) {
 
-        try {
-            FileReader fileReader = new FileReader("employees.csv");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+        try ( BufferedReader bufferedReader = new BufferedReader(new FileReader("employees.csv"))){
 
             String line;
-            String headerLine = bufferedReader.readLine(); //ignore header
+            bufferedReader.readLine();
 
             while ((line = bufferedReader.readLine()) != null) {
-                //Split it into individual fields using the | character as the delimiter
                 String[] fields = line.split(Pattern.quote("|"));
 
                 int employeeId = Integer.parseInt(fields[0]);
                 String name = fields[1];
-                Double hoursWorked = Double.parseDouble(fields[2]);
-                Double payRate = Double.parseDouble(fields[3]);
-                Employee employee = new Employee(employeeId, name, hoursWorked, payRate);
-                System.out.println(employee);
+                double hours = Double.parseDouble(fields[2]);
+                double payRate = Double.parseDouble(fields[3]);
+                Employee employee = new Employee(employeeId, name, hours, payRate);
+                System.out.printf("Id: %d  Name: %s  Gross Pay: $%.2f%n", employee.getEmployeeId(), employee.getName(), employee.calcuateGrossPay());
             }
-
-            bufferedReader.close();
         } catch (IOException e) {
-            System.out.println("There was an error reading the transactions file. Check the location of the file.");
+            System.out.println("There was an error reading the transactions file.");
         }
+
+
     }
 }
