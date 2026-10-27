@@ -3,10 +3,12 @@ package com.pluralsight;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Program {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
         try ( BufferedReader bufferedReader = new BufferedReader(new FileReader("employees.csv"))){
 
@@ -26,7 +28,6 @@ public class Program {
         } catch (IOException e) {
             System.out.println("There was an error reading the transactions file.");
         }
-
-
+        public static
     }
 }
